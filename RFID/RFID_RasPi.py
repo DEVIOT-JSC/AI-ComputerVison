@@ -149,11 +149,11 @@ class RFID:
             if (status == MIFAREReader.MI_OK):
 
                 # Print UID
-                print ("Card read UID: %s,%s,%s,%s" % (uid[0], uid[1], uid[2], uid[3]))
+                print ("Card read UID: %s,%s,%s,%s,%s" % (uid[0], uid[1], uid[2], uid[3],uid[4]))
             
                 # This is the default key for authentication
-                key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
-                
+                # key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
+                key = [171,235,210,34,176]
                 # Select the scanned tag
                 MIFAREReader.MFRC522_SelectTag(uid)
 
@@ -169,4 +169,4 @@ class RFID:
                     print ("Authentication error")
 if __name__ == "__main__":
     print("Starting...")
-    RFID.Read()
+    RFID.RFIDTask()
