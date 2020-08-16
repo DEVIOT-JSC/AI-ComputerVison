@@ -13,6 +13,7 @@ def end_read(signal,frame):
 class RFID:
     def Init():
         # Hook the SIGINT
+        GPIO.setmode(GPIO.BOARD)
         signal.signal(signal.SIGINT, end_read)
         # Create an object of the class MFRC522
         MIFAREReader = MFRC522.MFRC522()
