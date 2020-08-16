@@ -23,19 +23,18 @@ class RFID:
         print("111111111111111111111111")
         print(continue_reading)
         while (continue_reading == True):
-            print("2222222222222222222222")
             # Scan for cards    
             (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
-
+            print(status)
             # If a card is found
-            if status == MIFAREReader.MI_OK:
+            if (status == MIFAREReader.MI_OK):
                 print("Card detected")
             
             # Get the UID of the card
             (status,uid) = MIFAREReader.MFRC522_Anticoll()
 
             # If we have the UID, continue
-            if status == MIFAREReader.MI_OK:
+            if (status == MIFAREReader.MI_OK):
 
                 # Print UID
                 print ("Card read UID: %s,%s,%s,%s" % (uid[0], uid[1], uid[2], uid[3]))
@@ -50,7 +49,7 @@ class RFID:
                 status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
 
                 # Check if authenticated
-                if status == MIFAREReader.MI_OK:
+                if (status == MIFAREReader.MI_OK):
                     MIFAREReader.MFRC522_Read(8)
                     MIFAREReader.MFRC522_StopCrypto1()
                 else:
