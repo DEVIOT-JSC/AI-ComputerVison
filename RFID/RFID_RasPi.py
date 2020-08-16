@@ -19,13 +19,17 @@ class RFID:
         MIFAREReader = MFRC522.MFRC522()
         return MIFAREReader
     def Read():
-        MIFAREReader = RFID.Init()
-        print("111111111111111111111111")
+        # MIFAREReader = RFID.Init()
+        # GPIO.setmode(GPIO.BOARD)
+        signal.signal(signal.SIGINT, end_read)
+        # Create an object of the class MFRC522
+        MIFAREReader = MFRC522.MFRC522()
+        print("Mot con vit")
         print(continue_reading)
         while (continue_reading == True):
             # Scan for cards    
             (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
-            print(status)
+            # print(status)
             # If a card is found
             if (status == MIFAREReader.MI_OK):
                 print("Card detected")
