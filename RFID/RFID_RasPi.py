@@ -153,7 +153,7 @@ class RFID:
             
                 # This is the default key for authentication
                 # key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
-                key = [171,235,210,34,176]
+                key = [0xAB,0xEB,0xD2,0xFF,0x22,0xB0]
                 # Select the scanned tag
                 MIFAREReader.MFRC522_SelectTag(uid)
 
