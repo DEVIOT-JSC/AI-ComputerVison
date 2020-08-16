@@ -147,22 +147,18 @@ class RFID:
 
             # If we have the UID, continue
             if (status == MIFAREReader.MI_OK):
-
                 # Print UID
                 print ("Card read UID: %s,%s,%s,%s,%s" % (uid[0], uid[1], uid[2], uid[3],uid[4]))
-            
                 # This is the default key for authentication
                 # key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
                 key = [0xAB,0xEB,0xD2,0xFF,0x22,0xB0]
                 # Select the scanned tag
                 MIFAREReader.MFRC522_SelectTag(uid)
-
                 # Authenticate
-                status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
-
+                status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 10, key, uid)
                 # Check if authenticated
                 if (status == MIFAREReader.MI_OK):
-                    MIFAREReader.MFRC522_Read(8)
+                    MIFAREReader.MFRC522_Read(10)
                     MIFAREReader.MFRC522_StopCrypto1()
                     print ("Authentication completed")
                 else:
