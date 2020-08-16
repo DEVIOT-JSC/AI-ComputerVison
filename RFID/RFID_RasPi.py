@@ -131,7 +131,11 @@ class RFID:
                     continue_reading = False
                 else:
                     print ("Authentication error")
-
+    def Authen(uid = []):
+        key = [171,235,210,34,17]
+        if (uid[0] == key[0] and uid[1] == key[1] and uid[2] == key[2] and uid[3] == key[3] and uid[4] == key[4]):
+            result = 0
+        return result
     def RFIDTask():
         MIFAREReader = RFID.Init()
         while (continue_reading == True):
@@ -155,7 +159,8 @@ class RFID:
                 # Select the scanned tag
                 MIFAREReader.MFRC522_SelectTag(uid)
                 # Authenticate
-                status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 10, key, uid)
+                # status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 10, key, uid)
+                status = RFID.Authen()
                 # Check if authenticated
                 if (status == MIFAREReader.MI_OK):
                     MIFAREReader.MFRC522_Read(10)
