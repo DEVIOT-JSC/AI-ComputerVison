@@ -20,7 +20,10 @@ class RFID:
         return MIFAREReader
     def Read():
         MIFAREReader = RFID.Init()
-        while continue_reading:
+        print("111111111111111111111111")
+        print(continue_reading)
+        while (continue_reading == True):
+            print("2222222222222222222222")
             # Scan for cards    
             (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
 
