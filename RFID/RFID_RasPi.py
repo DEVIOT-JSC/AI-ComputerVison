@@ -163,4 +163,5 @@ class RFID:
                 else:
                     print ("Authentication error")
 if __name__ == "__main__":
+    print("Starting...")
     RFID.Read()
