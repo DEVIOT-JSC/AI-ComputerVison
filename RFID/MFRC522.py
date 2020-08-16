@@ -127,7 +127,7 @@ class MFRC522:
     
   serNum = []
   
-  def __init__(self, dev='spidev', spd=1000000):
+  def __init__(self, dev='/dev/spidev0.0', spd=1000000):
     spi.openSPI(device=dev,speed=spd)
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(self.NRSTPD, GPIO.OUT)
@@ -224,7 +224,7 @@ class MFRC522:
           i = 0
           while i<n:
             backData.append(self.Read_MFRC522(self.FIFODataReg))
-            i = i + 1;
+            i = i + 1
       else:
         status = self.MI_ERR
 
@@ -238,7 +238,7 @@ class MFRC522:
     
     self.Write_MFRC522(self.BitFramingReg, 0x07)
     
-    TagType.append(reqMode);
+    TagType.append(reqMode)
     (status,backData,backBits) = self.MFRC522_ToCard(self.PCD_TRANSCEIVE, TagType)
   
     if ((status != self.MI_OK) | (backBits != 0x10)):
@@ -275,7 +275,7 @@ class MFRC522:
   
   def CalulateCRC(self, pIndata):
     self.ClearBitMask(self.DivIrqReg, 0x04)
-    self.SetBitMask(self.FIFOLevelReg, 0x80);
+    self.SetBitMask(self.FIFOLevelReg, 0x80)
     i = 0
     while i<len(pIndata):
       self.Write_MFRC522(self.FIFODataReg, pIndata[i])
