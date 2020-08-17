@@ -1,6 +1,6 @@
-# import RPi.GPIO as GPIO
-# import MFRC522
-# import signal
+import RPi.GPIO as GPIO
+import MFRC522
+import signal
 from firebase import firebase
 continue_reading = True
 
