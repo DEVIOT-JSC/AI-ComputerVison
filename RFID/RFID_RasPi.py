@@ -1,7 +1,7 @@
-import RPi.GPIO as GPIO
-import MFRC522
-import signal
-
+# import RPi.GPIO as GPIO
+# import MFRC522
+# import signal
+from firebase import firebase
 continue_reading = True
 
 # Capture SIGINT for cleanup when the script is aborted
@@ -168,6 +168,12 @@ class RFID:
                     print ("Authentication completed")
                 else:
                     print ("Authentication error")
+class FireBase_Com:
+    def SendData():
+        firebase = firebase.FirebaseApplication("https://test-firebase-7a605.firebaseio.com/",None)
+        result = firebase.get('/addMeber', None)
+        print(result)
 if __name__ == "__main__":
     print("Starting...")
-    RFID.RFIDTask()
+    # RFID.RFIDTask()
+    # FireBase_Com.SendData()
