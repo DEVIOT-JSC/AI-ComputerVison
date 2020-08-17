@@ -176,4 +176,4 @@ class FireBase_Com:
 if __name__ == "__main__":
     print("Starting...")
     # RFID.RFIDTask()
-    # FireBase_Com.SendData()
+    FireBase_Com.SendData()
