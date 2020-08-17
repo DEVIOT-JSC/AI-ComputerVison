@@ -170,8 +170,8 @@ class RFID:
                     print ("Authentication error")
 class FireBase_Com:
     def SendData():
-        firebase = firebase.FirebaseApplication("https://test-firebase-7a605.firebaseio.com/",None)
-        result = firebase.get('/addMeber', None)
+        fb = firebase.FirebaseApplication("https://test-firebase-7a605.firebaseio.com/",None)
+        result = fb.get('/addMeber', None)
         print(result)
 if __name__ == "__main__":
     print("Starting...")
