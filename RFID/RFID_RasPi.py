@@ -1,10 +1,15 @@
+import os
 # import RPi.GPIO as GPIO
 # import MFRC522
 # from google.oauth2 import service_account
 # from google.auth.transport.requests import AuthorizedSession
 # import google.auth.transport.requests
-import firebase_admin
-from firebase_admin import credentials
+# import google
+# import google.auth
+# from google.auth import app_engine
+# from firebase_admin import db
+# import firebase_admin
+# from firebase_admin import credentials
 import signal
 from firebase import firebase
 continue_reading = True
@@ -175,36 +180,33 @@ class RFID:
                     print ("Authentication error")
 class FireBase_Com:
     def Authen():
-        scopes = [
-                "https://www.googleapis.com/auth/userinfo.email",
-                "https://www.googleapis.com/auth/firebase.database"
-                ]
-        # Authenticate a credential with the service account
-        credentials = service_account.Credentials.from_service_account_file(
-            "test-firebase-7a605-firebase-adminsdk-ge9h3-e2a3245f8b.json", scopes=scopes)
-
-        # Use the credentials object to authenticate a Requests session.
-        authed_session = AuthorizedSession(credentials)
-        response = authed_session.get(
-            "https://test-firebase-7a605.firebaseio.com/users/ada/name.json")
-
-        # Or, use the token directly, as described in the "Authenticate with an
-        # access token" section below. (not recommended)
+        credentials = app_engine.Credentials()
         request = google.auth.transport.requests.Request()
         credentials.refresh(request)
         access_token = credentials.token
         print(access_token)
-        authentication = firebase.Authentication('THIS_IS_MY_SECRET', 'ozgurvt@gmail.com', extra={'id': 123})
+        authentication = firebase.Authentication('PQqVQP0x7QfCDSrLctl9e7aCaFztYNsCY4uE5BOD', 'pha.mr3998@gmail.com')
         firebase.authentication = authentication
         print(authentication.extra)
     def SendData():
-        cred = credentials.Certificate("test-firebase-7a605-firebase-adminsdk-ge9h3-e2a3245f8b.json")
-        firebase_admin.initialize_app(cred)
+        # cred = credentials.Certificate("test-firebase-7a605-firebase-adminsdk-ge9h3-e2a3245f8b.json")
+        # firebase_admin.initialize_app(cred)
+        # ref = db.reference('addMeber')
+        # ref.set({
+        #     'appRequest': '4565434565432'
+        # })
         # FireBase_Com.Authen()
+        # ref = db.reference('addMeber')
+        # data = {
+        #     'appRequest':"5587654"
+        # }
+        # result = fb.get('/addMeber','')
+        # print(result)
+        # delete_result = fb.delete('/addMeber','-MF0k7CPNpE98S5GL6KE')
         fb = firebase.FirebaseApplication("https://test-firebase-7a605.firebaseio.com/",None)
-        print(fb)
-        result = fb.get('/test-firebase-7a605', '')
-        print(result)
+        post_result = fb.push('/addMeber','appRequest','2123')
+        print(post_result)
+
 if __name__ == "__main__":
     print("Starting...")
     # RFID.RFIDTask()
