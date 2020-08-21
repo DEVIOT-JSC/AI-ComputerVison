@@ -9,6 +9,7 @@ from firebase_admin import credentials
 from firebase_admin import db
 from requests.packages import urllib3
 import datetime
+from time import sleep
 # import signal
 # from firebase import firebase
 # Variable define 
@@ -327,7 +328,8 @@ def MainThread():
     # print('Main')
 def FaceThread():
     # FaceDetection.GetFace()
-    # print('Face')
+    sleep(10)
+    print('Face')
 if __name__ == "__main__":
     print("Starting...")
     while(1):
