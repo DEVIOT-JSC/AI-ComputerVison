@@ -10,7 +10,7 @@ from firebase_admin import db
 from requests.packages import urllib3
 import datetime
 from time import sleep
-# import signal
+import signal
 # from firebase import firebase
 # Variable define 
 hooman = ''
