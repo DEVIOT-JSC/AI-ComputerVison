@@ -1,8 +1,8 @@
 import os
 import threading
 from threading import Thread
-# import RPi.GPIO as GPIO
-# import MFRC522
+import RPi.GPIO as GPIO
+import MFRC522
 import json
 import firebase_admin
 from firebase_admin import credentials
@@ -254,8 +254,10 @@ class FaceDetection:
                 FireBase_Com(result,UsrID)
 class FireBase_Com:
     def Init():
-        cred = credentials.Certificate("test-firebase-7a605-firebase-adminsdk-ge9h3-e2a3245f8b.json")
-        firebase_admin.initialize_app(cred,{'databaseURL':'https://test-firebase-7a605.firebaseio.com'})
+        # cred = credentials.Certificate("test-firebase-7a605-firebase-adminsdk-ge9h3-e2a3245f8b.json")
+        # firebase_admin.initialize_app(cred,{'databaseURL':'https://test-firebase-7a605.firebaseio.com'})
+        cred = credentials.Certificate("deviot-may-cham-cong-firebase-adminsdk-4j9vd-c20046ba51.json")
+        firebase_admin.initialize_app(cred,{'databaseURL':'https://deviot-may-cham-cong.firebaseio.com'})
     def AddNew():
         tmp_vr = []
         FireBase_Com.Init()
@@ -321,11 +323,11 @@ class FireBase_Com:
         employees = db.reference(str('employees/'+UsrID))
         result = employees.update({'FaceID':FaceID})
 def MainThread():
-    # RFID.RFIDTask()
-    print('Main')
+    RFID.RFIDTask()
+    # print('Main')
 def FaceThread():
     # FaceDetection.GetFace()
-    print('Face')
+    # print('Face')
 if __name__ == "__main__":
     print("Starting...")
     while(1):
