@@ -323,7 +323,7 @@ class FireBase_Com:
         FireBase_Com.Init()
         employees = db.reference(str('employees/'+UsrID))
         result = employees.update({'FaceID':FaceID})
-def MainThread():
+# def MainThread():
     RFID.RFIDTask()
     # print('Main')
 # def FaceThread():
@@ -332,8 +332,9 @@ def MainThread():
 #     print('Face')
 if __name__ == "__main__":
     print("Starting...")
-    while(1):
-        MainTh = threading.Thread(target = MainThread)
+    RFID.RFIDTask()
+    # while(1):
+        # MainTh = threading.Thread(target = MainThread)
         # FaceTh = threading.Thread(target = FaceThread)
-        MainTh.start()
+        # MainTh.start()
         # FaceTh.start()
