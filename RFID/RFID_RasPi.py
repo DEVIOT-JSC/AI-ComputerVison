@@ -326,14 +326,14 @@ class FireBase_Com:
 def MainThread():
     RFID.RFIDTask()
     # print('Main')
-def FaceThread():
-    # FaceDetection.GetFace()
-    sleep(10)
-    print('Face')
+# def FaceThread():
+#     # FaceDetection.GetFace()
+#     sleep(10)
+#     print('Face')
 if __name__ == "__main__":
     print("Starting...")
     while(1):
         MainTh = threading.Thread(target = MainThread)
-        FaceTh = threading.Thread(target = FaceThread)
+        # FaceTh = threading.Thread(target = FaceThread)
         MainTh.start()
-        FaceTh.start()
+        # FaceTh.start()
