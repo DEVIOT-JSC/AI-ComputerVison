@@ -138,6 +138,7 @@ class RFID:
                     if (appRq == 0): #RFID Card
                         txt_uid = Tools.GetStringFromList(uid)
                         AutStt,UsrID = RFID.Authen(txt_uid)
+                        print("\nAutStt = ",AutStt)
                         if (AutStt == 1):
                             print("Sending data...")
                             FireBase_Com.SendData(txt_uid,UsrID)
