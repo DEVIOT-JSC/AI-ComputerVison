@@ -2,7 +2,8 @@ import os
 import threading
 from threading import Thread
 import RPi.GPIO as GPIO
-import MFRC522
+# import MFRC522
+from pirc522 import RFID
 import json
 import firebase_admin
 from firebase_admin import credentials
