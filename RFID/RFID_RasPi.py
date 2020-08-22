@@ -224,6 +224,9 @@ class FireBase_Com:
         employees = db.reference(str('employees/'+UsrID))
         result = employees.update({'rfid':CardID})
         print("Add New Card: Done")
+        # Set appRequest to 0
+        db_reset_appRq = db.reference('addMember')
+        rs = db_reset_appRq.update({'appRequest':0})
     def UpdateFaceInfo(UsrID = '', FaceID = ''):
         # FireBase_Com.Init()
         employees = db.reference(str('employees/'+UsrID))
