@@ -99,7 +99,7 @@ class RFID:
         UsrID = list_UserID[i]
         return result,UsrID
     def RFIDTask():
-        MIFAREReader = RFID.Init()
+        # MIFAREReader = RFID.Init()
         while (run == True):
             AddSig,NewUsrID,appRq = FireBase_Com.AddNew()
             if (appRq == '0' or appRq == '1'):
