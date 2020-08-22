@@ -223,7 +223,7 @@ class FireBase_Com:
         employees = db.reference(str('employees/'+UsrID))
         result = employees.update({'FaceID':FaceID})
 # def MainThread():
-    RFID.RFIDTask()
+    # RFID.RFIDTask()
     # print('Main')
 # def FaceThread():
 #     # FaceDetection.GetFace()
