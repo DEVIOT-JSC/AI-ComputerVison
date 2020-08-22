@@ -81,6 +81,7 @@ class RFID:
         # if (uid[0] == key[0] and uid[1] == key[1] and uid[2] == key[2] and uid[3] == key[3] and uid[4] == key[4]):
         #     result = 0
         UsrID = list_UserID[i]
+        print(list_UserID)
         return result,UsrID
     def AuthenFace(FaceID = []):
         i = 0
