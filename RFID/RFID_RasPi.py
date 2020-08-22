@@ -102,7 +102,7 @@ class RFID:
         # MIFAREReader = RFID.Init()
         while (run == True):
             AddSig,NewUsrID,appRq = FireBase_Com.AddNew()
-            print("appRq = ",appRq)
+            # print("appRq = ",appRq)
             if (appRq == 0 or appRq == 1):
                 print("Looking for card...")
                 # Scan for cards    
@@ -133,7 +133,7 @@ class RFID:
                     elif (appRq == 1): #Add Card
                         print("Add new id card")
                         FireBase_Com.UpdateCardInfo(NewUsrID,uid)
-            elif (appRq == '2'):
+            elif (appRq == 2):
                 print("Add new Face ID")
                 FireBase_Com.UpdateFaceInfo(NewUsrID,FaceID)
 class FaceDetection:
@@ -155,7 +155,7 @@ class FireBase_Com:
         # FireBase_Com.Init()
         addMember = db.reference('addMember')
         addTab = addMember.get()
-        print(addTab)
+        # print(addTab)
         # json_addTab = json.dumps(addTab)
         for key, value in addTab.items():
             tmp_vr.append(value)
