@@ -111,16 +111,16 @@ class RFID:
             if (appRq == 0 or appRq == 1):
                 print("Looking for card...")
                 # Scan for cards    
-                # rdr.wait_for_tag()
+                rdr.wait_for_tag()
                 (error, data) = rdr.request()
                 # If a card is found
                 print('\nError = ',error)
-                if (error == False):
+                if (not error):
                     print("\nDetected: " + format(data, "02x"))
                 # Get the UID of the card
                 (error, uid) = rdr.anticoll()
                 # If we have the UID, continue
-                if (error == False):
+                if (not error):
                     # Print UID
                     print ("Card read UID: %s,%s,%s,%s,%s" % (uid[0], uid[1], uid[2], uid[3],uid[4]))
                     # This is the default key for authentication
