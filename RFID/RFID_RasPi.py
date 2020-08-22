@@ -15,13 +15,19 @@ import signal
 # from firebase import firebase
 # Variable define 
 hooman = ''
-continue_reading = True
+run = True
+rdr = RFID()
+util = rdr.util()
+util.debug = True
+GPIO.setmode(GPIO.BOARD)
+signal.signal(signal.SIGINT, end_read)
 # Capture SIGINT for cleanup when the script is aborted
 def end_read(signal,frame):
-    global continue_reading
-    print ("Ctrl+C captured, ending read.")
-    continue_reading = False
-    GPIO.cleanup()
+    global run
+    print("\nCtrl+C captured, ending read.")
+    run = False
+    rdr.cleanup()
+    sys.exit()
 class Tools():
     def ReadIMGFile(path_to_file = ''):
         result = ''
@@ -48,126 +54,17 @@ class Tools():
         txt_uid = txt_uid.replace('[','').replace(']','')
         return txt_uid
 class RFID:    
-    def Init():
-        # Hook the SIGINT
-        GPIO.setmode(GPIO.BOARD)
-        signal.signal(signal.SIGINT, end_read)
-        # Create an object of the class MFRC522
-        MIFAREReader = MFRC522.MFRC522()
-        return MIFAREReader
-    def Read():
-        # MIFAREReader = RFID.Init()
-        # GPIO.setmode(GPIO.BOARD)
-        signal.signal(signal.SIGINT, end_read)
-        # Create an object of the class MFRC522
-        MIFAREReader = MFRC522.MFRC522()
-        print("Mot con vit")
-        print(continue_reading)
-        while (continue_reading == True):
-            # Scan for cards    
-            (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
-            # print(status)
-            # If a card is found
-            if (status == MIFAREReader.MI_OK):
-                print("Card detected")
-            # Get the UID of the card
-            (status,uid) = MIFAREReader.MFRC522_Anticoll()
-
-            # If we have the UID, continue
-            if (status == MIFAREReader.MI_OK):
-
-                # Print UID
-                print ("Card read UID: %s,%s,%s,%s,%s" % (uid[0], uid[1], uid[2], uid[3],uid[4]))
-            
-                # This is the default key for authentication
-                key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
-                
-                # Select the scanned tag
-                MIFAREReader.MFRC522_SelectTag(uid)
-
-                # Authenticate
-                status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
-
-                # Check if authenticated
-                if (status == MIFAREReader.MI_OK):
-                    MIFAREReader.MFRC522_Read(8)
-                    MIFAREReader.MFRC522_StopCrypto1()
-                else:
-                    print ("Authentication error")
-    def Write():
-        while (continue_reading == True):
-            # Scan for cards    
-            (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
-
-            # If a card is found
-            if (status == MIFAREReader.MI_OK):
-                print ("Card detected")
-            
-            # Get the UID of the card
-            (status,uid) = MIFAREReader.MFRC522_Anticoll()
-
-            # If we have the UID, continue
-            if (status == MIFAREReader.MI_OK):
-
-                # Print UID
-                print ("Card read UID: %s,%s,%s,%s" % (uid[0], uid[1], uid[2], uid[3]))
-            
-                # This is the default key for authentication
-                key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
-                
-                # Select the scanned tag
-                MIFAREReader.MFRC522_SelectTag(uid)
-
-                # Authenticate
-                status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
-                print ("\n")
-
-                # Check if authenticated
-                if (status == MIFAREReader.MI_OK):
-
-                    # Variable for the data to write
-                    data = []
-
-                    # Fill the data with 0xFF
-                    for x in range(0,16):
-                        data.append(0xFF)
-
-                    print ("Sector 8 looked like this:")
-                    # Read block 8
-                    MIFAREReader.MFRC522_Read(8)
-                    print ("\n")
-
-                    print ("Sector 8 will now be filled with 0xFF:")
-                    # Write the data
-                    MIFAREReader.MFRC522_Write(8, data)
-                    print ("\n")
-
-                    print ("It now looks like this:")
-                    # Check to see if it was written
-                    MIFAREReader.MFRC522_Read(8)
-                    print ("\n")
-
-                    data = []
-                    # Fill the data with 0x00
-                    for x in range(0,16):
-                        data.append(0x00)
-
-                    print ("Now we fill it with 0x00:")
-                    MIFAREReader.MFRC522_Write(8, data)
-                    print ("\n")
-
-                    print ("It is now empty:")
-                    # Check to see if it was written
-                    MIFAREReader.MFRC522_Read(8)
-                    print ("\n")
-
-                    # Stop
-                    MIFAREReader.MFRC522_StopCrypto1()
-
-                    # Make sure to stop reading for cards
-                    continue_reading = False
-                else:
-                    print ("Authentication error")
+    # def Init():
+    #     # Hook the SIGINT
+    #     GPIO.setmode(GPIO.BOARD)
+    #     signal.signal(signal.SIGINT, end_read)
+    #     # Create an object of the class MFRC522
+    #     # MIFAREReader = MFRC522.MFRC522()
+    #     run = True
+    #     rdr = RFID()
+    #     util = rdr.util()
+    #     util.debug = True
+    #     # return MIFAREReader
     def Authen(uid = []):
         i = 0
         list_UserID = []
@@ -203,29 +100,30 @@ class RFID:
         return result,UsrID
     def RFIDTask():
         MIFAREReader = RFID.Init()
-        while (continue_reading == True):
+        while (run == True):
             AddSig,NewUsrID,appRq = FireBase_Com.AddNew()
             if (appRq == '0' or appRq == '1'):
                 print("Looking for card...")
                 # Scan for cards    
-                (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
-
+                rdr.wait_for_tag()
+                (error, data) = rdr.request()
                 # If a card is found
-                if (status == MIFAREReader.MI_OK):
-                    print ("Card detected")
-                
+                print('\nError = ',error)
+                if (not error):
+                    print("\nDetected: " + format(data, "02x"))
                 # Get the UID of the card
-                (status,uid) = MIFAREReader.MFRC522_Anticoll()
+                (error, uid) = rdr.anticoll()
 
                 # If we have the UID, continue
-                if (status == MIFAREReader.MI_OK):
+                if (not error):
                     # Print UID
                     print ("Card read UID: %s,%s,%s,%s,%s" % (uid[0], uid[1], uid[2], uid[3],uid[4]))
                     # This is the default key for authentication
                     # key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
                     key = [0xAB,0xEB,0xD2,0xFF,0x22,0xB0]
                     # Select the scanned tag
-                    MIFAREReader.MFRC522_SelectTag(uid)
+                    print("Setting tag")
+                    util.set_tag(uid)
                     # Authenticate
                     # status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 10, key, uid)
                     if (appRq == '0'): #RFID Card
