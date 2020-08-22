@@ -68,18 +68,18 @@ class RFID:
     def Authen(uid = []):
         i = 0
         list_UserID = []
-        list_UserInfo = []
+        list_UserRFID = []
         str_uid = str(uid)
-        list_UserID,list_UserInfo = FireBase_Com.GetAuthenData()
-        for ls in list_UserInfo:
+        list_UserID,list_UserRFID = FireBase_Com.GetAuthenData()
+        for ls in list_UserRFID:
             cmp_stt = str(ls).find(str_uid)
             if (cmp_stt != -1):
                 result = 1
+                break
             else:
                 result = 0
                 i = i+1
-        # if (uid[0] == key[0] and uid[1] == key[1] and uid[2] == key[2] and uid[3] == key[3] and uid[4] == key[4]):
-        #     result = 0
+        print("\ni = ",i)
         print(list_UserID)
         UsrID = list_UserID[i]
         return result,UsrID
@@ -194,23 +194,20 @@ class FireBase_Com:
     def GetAuthenData():
         # FireBase_Com.Init()
         list_UserID = []
+        list_UserRFID = []
         list_UserInfo = []
         #Get data
-        # dd_child = '112-52-29-164-253'
-        # diemdanh = db.reference(str('employees/'+dd_child))
         employees = db.reference('employees')
         dayTab = employees.get()
-        # print(str(dayTab).replace("'",'"'))
         json_dayTab = json.dumps(dayTab)
         for key, value in dayTab.items():
             list_UserID.append(key)
             list_UserInfo.append(value)
-        # json_str = json.load(dayTab)
-        # json_str = json.load(str(str(dayTab).replace("'",'"')))
-        # print(dayTab)
-        # print(type(dayTab))
-        # Get list Main ID
-        return list_UserID,list_UserInfo
+        for id in list_UserID:
+            db_rfid = db.reference(str('employees/' + str(id) + '/rfid'))
+            rfid_ = db_rfid.get()
+            list_UserRFID.append(rfid_)
+        return list_UserID,list_UserRFID
     def UpdateCardInfo(UsrID = '', CardID = ''):
         # FireBase_Com.Init()
         employees = db.reference(str('employees/'+UsrID))
