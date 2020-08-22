@@ -114,7 +114,7 @@ class RFID:
             AddSig,NewUsrID,appRq = FireBase_Com.AddNew()
             # print("appRq = ",appRq)
             if (appRq == 0 or appRq == 1):
-                # print("Looking for card...")
+                print("Looking for card...")
                 # Scan for cards    
                 # rdr.wait_for_tag()
                 (error, data) = rdr.request()
@@ -222,7 +222,8 @@ class FireBase_Com:
     def UpdateCardInfo(UsrID = '', CardID = ''):
         # FireBase_Com.Init()
         employees = db.reference(str('employees/'+UsrID))
-        result = employees.update({'id':UsrID})
+        result = employees.update({'rfid':CardID})
+        print("Add New Card: Done")
     def UpdateFaceInfo(UsrID = '', FaceID = ''):
         # FireBase_Com.Init()
         employees = db.reference(str('employees/'+UsrID))
