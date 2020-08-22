@@ -147,7 +147,7 @@ class RFID:
                         FireBase_Com.UpdateCardInfo(NewUsrID,uid)
             elif (appRq == 2):
                 print("Add new Face ID")
-                FireBase_Com.UpdateFaceInfo(NewUsrID,FaceID)
+                FireBase_Com.UpdateFaceInfo(Tools.GetStringFromList(NewUsrID),FaceID)
 class FaceDetection:
     def GetFace():
         print("Looking for new face...")
