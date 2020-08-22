@@ -20,7 +20,6 @@ rdr = RFID()
 util = rdr.util()
 util.debug = True
 GPIO.setmode(GPIO.BOARD)
-signal.signal(signal.SIGINT, end_read)
 # Capture SIGINT for cleanup when the script is aborted
 def end_read(signal,frame):
     global run
@@ -28,6 +27,7 @@ def end_read(signal,frame):
     run = False
     rdr.cleanup()
     sys.exit()
+signal.signal(signal.SIGINT, end_read)
 class Tools():
     def ReadIMGFile(path_to_file = ''):
         result = ''
