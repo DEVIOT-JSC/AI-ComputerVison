@@ -89,6 +89,7 @@ class RFID:
             UsrID = list_UserID[i]
         except:
             print("       ")
+            UsrID = ''
         i= 0
         return result,UsrID
     def AuthenFace(FaceID = []):
