@@ -110,12 +110,12 @@ class RFID:
                 (error, data) = rdr.request()
                 # If a card is found
                 print('\nError = ',error)
-                if (not error):
+                if (error == False):
                     print("\nDetected: " + format(data, "02x"))
                 # Get the UID of the card
                 (error, uid) = rdr.anticoll()
                 # If we have the UID, continue
-                if (not error):
+                if (error == False):
                     # Print UID
                     print ("Card read UID: %s,%s,%s,%s,%s" % (uid[0], uid[1], uid[2], uid[3],uid[4]))
                     # This is the default key for authentication
@@ -125,12 +125,12 @@ class RFID:
                     print("Setting tag")
                     util.set_tag(uid)
                     # Authenticate
-                    if (appRq == '0'): #RFID Card
+                    if (appRq == 0): #RFID Card
                         txt_uid = Tools.GetStringFromList(uid)
                         AutStt,UsrID = RFID.Authen(txt_uid)
                         if (AutStt == 1):
                             FireBase_Com.SendData(txt_uid,UsrID)
-                    elif (appRq == '1'): #Add Card
+                    elif (appRq == 1): #Add Card
                         print("Add new id card")
                         FireBase_Com.UpdateCardInfo(NewUsrID,uid)
             elif (appRq == '2'):
