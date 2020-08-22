@@ -71,21 +71,25 @@ class RFID:
         list_UserRFID = []
         str_uid = str(uid)
         list_UserID,list_UserRFID = FireBase_Com.GetAuthenData()
-        for ls in list_UserRFID:
-            cmp_stt = str(ls).find(str_uid)
-            if (cmp_stt != -1):
-                result = 1
-                break
+        try: 
+            for ls in list_UserRFID:
+                cmp_stt = str(ls).find(str_uid)
+                if (cmp_stt != -1):
+                    result = 1
+                    break
+                else:
+                    result = 0
+                    i = i+1
+            if (result == 1):
+                print("ACCESS GRANTED!!!")
             else:
-                result = 0
-                i = i+1
-        if (result == 1):
-            print("ACCESS GRANTED!!!")
-        else:
-            print("ACESS DENIED")
-        print("\ni = ",i)
-        print(list_UserID)
-        UsrID = list_UserID[i]
+                print("ACESS DENIED")
+            print("\ni = ",i)
+            print(list_UserID)
+            UsrID = list_UserID[i]
+        except:
+            continue
+        i= 0
         return result,UsrID
     def AuthenFace(FaceID = []):
         i = 0
