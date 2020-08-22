@@ -193,7 +193,7 @@ class FireBase_Com:
         timeExit = '0'
         hour = int(str(now).split(' ')[1].split(':')[0])
         this_time = str(now).split(' ')[1].split('.')[0]
-        print('hour = ' hour)
+        print('hour = ',hour)
         print('this time',this_time)
         if (hour > 8 and hour < 10):
             timeEnter = this_time
