@@ -102,7 +102,8 @@ class RFID:
         # MIFAREReader = RFID.Init()
         while (run == True):
             AddSig,NewUsrID,appRq = FireBase_Com.AddNew()
-            if (appRq == '0' or appRq == '1'):
+            print("appRq = ",appRq)
+            if (appRq == 0 or appRq == 1):
                 print("Looking for card...")
                 # Scan for cards    
                 rdr.wait_for_tag()
@@ -113,7 +114,6 @@ class RFID:
                     print("\nDetected: " + format(data, "02x"))
                 # Get the UID of the card
                 (error, uid) = rdr.anticoll()
-
                 # If we have the UID, continue
                 if (not error):
                     # Print UID
@@ -125,7 +125,6 @@ class RFID:
                     print("Setting tag")
                     util.set_tag(uid)
                     # Authenticate
-                    # status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 10, key, uid)
                     if (appRq == '0'): #RFID Card
                         txt_uid = Tools.GetStringFromList(uid)
                         AutStt,UsrID = RFID.Authen(txt_uid)
@@ -134,13 +133,6 @@ class RFID:
                     elif (appRq == '1'): #Add Card
                         print("Add new id card")
                         FireBase_Com.UpdateCardInfo(NewUsrID,uid)
-                    # Check if authenticated
-                    # if (status == MIFAREReader.MI_OK):
-                    #     MIFAREReader.MFRC522_Read(10)
-                    #     MIFAREReader.MFRC522_StopCrypto1()
-                    #     print ("Authentication completed")
-                    # else:
-                    #     print ("Authentication error")
             elif (appRq == '2'):
                 print("Add new Face ID")
                 FireBase_Com.UpdateFaceInfo(NewUsrID,FaceID)
