@@ -186,6 +186,7 @@ class FireBase_Com:
         today = str(datetime.datetime.today()).split(" ")[0]
         # Send data
         diemdanh = db.reference(str('diemdanh/'+today))
+        print("str('diemdanh/'+today)",str('diemdanh/'+today))
         # diemdanh = db.reference(str('diemdanh/13-08-2020'))
         rq = diemdanh.child(UsrID)
         now = datetime.datetime.now()
@@ -193,7 +194,7 @@ class FireBase_Com:
         timeExit = '0'
         hour = int(str(now).split(' ')[1].split(':')[0])
         this_time = str(now).split(' ')[1].split('.')[0]
-        print('hour = ',hour)
+        # print('hour = ',hour)
         print('this time',this_time)
         if (hour > 8 and hour < 10):
             timeEnter = this_time
