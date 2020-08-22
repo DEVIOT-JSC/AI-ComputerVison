@@ -159,8 +159,10 @@ class FireBase_Com:
         # json_addTab = json.dumps(addTab)
         # for key, value in addTab.items():
         #     tmp_vr.append(value)
-        NewUsrID = db.reference('addMember/NewUsrID')
-        appRq = db.reference('addMember/appRequest')
+        dbNewUsrID = db.reference('addMember/NewUsrID')
+        dbappRq = db.reference('addMember/appRequest')
+        NewUsrID = dbNewUsrID.get()
+        appRq = dbappRq.get()
         print("NewUsrID",NewUsrID)
         print("appRequest",appRq)
         return str(addTab),NewUsrID,appRq
