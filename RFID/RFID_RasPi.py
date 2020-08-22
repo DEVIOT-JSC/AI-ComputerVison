@@ -119,7 +119,7 @@ class RFID:
                 # rdr.wait_for_tag()
                 (error, data) = rdr.request()
                 # If a card is found
-                print('\nError = ',error)
+                # print('\nError = ',error)
                 if (not error):
                     print("\nDetected: " + format(data, "02x"))
                 # Get the UID of the card
@@ -175,8 +175,8 @@ class FireBase_Com:
         dbappRq = db.reference('addMember/appRequest')
         NewUsrID = dbNewUsrID.get()
         appRq = dbappRq.get()
-        print("NewUsrID",NewUsrID)
-        print("appRequest",appRq)
+        # print("NewUsrID",NewUsrID)
+        # print("appRequest",appRq)
         return str(addTab),NewUsrID,appRq
     def SendData(txt_uid='',UsrID=''):
         # Init connection
