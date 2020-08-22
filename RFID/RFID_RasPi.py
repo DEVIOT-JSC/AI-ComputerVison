@@ -138,6 +138,7 @@ class RFID:
                         txt_uid = Tools.GetStringFromList(uid)
                         AutStt,UsrID = RFID.Authen(txt_uid)
                         if (AutStt == 1):
+                            print("Sending data...")
                             FireBase_Com.SendData(txt_uid,UsrID)
                     elif (appRq == 1): #Add Card
                         print("Add new id card")
@@ -196,9 +197,6 @@ class FireBase_Com:
         elif (hour > 16 and hour < 18):
             timeExit = this_time
             result = rq.update({'timeExit':timeExit})
-        # result = rq.update({'timeEnter':timeEnter,
-        #                     'timeExit':timeExit})
-        # print(result)
     def GetAuthenData():
         # FireBase_Com.Init()
         list_UserID = []
