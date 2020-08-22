@@ -160,7 +160,7 @@ class FireBase_Com:
         firebase_admin.initialize_app(cred,{'databaseURL':'https://deviot-may-cham-cong.firebaseio.com'})
     def AddNew():
         tmp_vr = []
-        FireBase_Com.Init()
+        # FireBase_Com.Init()
         addMember = db.reference('addMember')
         addTab = addMember.get()
         print(addTab)
@@ -174,7 +174,7 @@ class FireBase_Com:
         # Init connection
         # cred = credentials.Certificate("test-firebase-7a605-firebase-adminsdk-ge9h3-e2a3245f8b.json")
         # firebase_admin.initialize_app(cred,{'databaseURL':'https://test-firebase-7a605.firebaseio.com'})
-        FireBase_Com.Init()
+        # FireBase_Com.Init()
         today = str(datetime.datetime.today()).split(" ")[0]
         # Send data
         diemdanh = db.reference(str('diemdanh/'+today))
@@ -195,7 +195,7 @@ class FireBase_Com:
         #                     'timeExit':timeExit})
         # print(result)
     def GetAuthenData():
-        FireBase_Com.Init()
+        # FireBase_Com.Init()
         list_UserID = []
         list_UserInfo = []
         #Get data
@@ -215,11 +215,11 @@ class FireBase_Com:
         # Get list Main ID
         return list_UserID,list_UserInfo
     def UpdateCardInfo(UsrID = '', CardID = ''):
-        FireBase_Com.Init()
+        # FireBase_Com.Init()
         employees = db.reference(str('employees/'+UsrID))
         result = employees.update({'id':UsrID})
     def UpdateFaceInfo(UsrID = '', FaceID = ''):
-        FireBase_Com.Init()
+        # FireBase_Com.Init()
         employees = db.reference(str('employees/'+UsrID))
         result = employees.update({'FaceID':FaceID})
 # def MainThread():
@@ -231,6 +231,7 @@ class FireBase_Com:
 #     print('Face')
 if __name__ == "__main__":
     print("Starting...")
+    FireBase_Com.Init()
     RFID.RFIDTask()
     # while(1):
         # MainTh = threading.Thread(target = MainThread)
