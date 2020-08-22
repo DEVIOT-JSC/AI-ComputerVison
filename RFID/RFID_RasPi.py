@@ -157,10 +157,12 @@ class FireBase_Com:
         addTab = addMember.get()
         # print(addTab)
         # json_addTab = json.dumps(addTab)
-        for key, value in addTab.items():
-            tmp_vr.append(value)
-        NewUsrID = tmp_vr[0]
-        appRq = tmp_vr[1]
+        # for key, value in addTab.items():
+        #     tmp_vr.append(value)
+        NewUsrID = db.reference('addMember/NewUsrID')
+        appRq = db.reference('addMember/appRequest')
+        print("NewUsrID",NewUsrID)
+        print("appRequest",appRq)
         return str(addTab),NewUsrID,appRq
     def SendData(txt_uid='',UsrID=''):
         # Init connection
