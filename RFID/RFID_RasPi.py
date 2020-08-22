@@ -144,14 +144,14 @@ class RFID:
                             FireBase_Com.SendData(txt_uid,UsrID)
                     elif (appRq == 1): #Add Card
                         print("Add new id card")
-                        FireBase_Com.UpdateCardInfo(NewUsrID,uid)
+                        FireBase_Com.UpdateCardInfo(NewUsrID,Tools.GetStringFromList(uid))
             elif (appRq == 2):
                 print("Add new Face ID")
-                FireBase_Com.UpdateFaceInfo(Tools.GetStringFromList(NewUsrID),FaceID)
+                FireBase_Com.UpdateFaceInfo(NewUsrID,FaceID)
 class FaceDetection:
     def GetFace():
         print("Looking for new face...")
-        # Sig,FaceID = Tools.ReadIMGFile('path')
+        Sig,FaceID = Tools.ReadIMGFile('path')
         while(1):
             result,UsrID = RFID.AuthenFace(FaceID)
             if(result == 1):
