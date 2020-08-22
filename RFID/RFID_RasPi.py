@@ -111,7 +111,7 @@ class RFID:
             if (appRq == 0 or appRq == 1):
                 print("Looking for card...")
                 # Scan for cards    
-                rdr.wait_for_tag()
+                # rdr.wait_for_tag()
                 (error, data) = rdr.request()
                 # If a card is found
                 print('\nError = ',error)
