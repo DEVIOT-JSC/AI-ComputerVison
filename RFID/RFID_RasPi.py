@@ -79,6 +79,10 @@ class RFID:
             else:
                 result = 0
                 i = i+1
+        if (result == 1):
+            print("ACCESS GRANTED!!!")
+        else:
+            print("ACESS DENIED")
         print("\ni = ",i)
         print(list_UserID)
         UsrID = list_UserID[i]
