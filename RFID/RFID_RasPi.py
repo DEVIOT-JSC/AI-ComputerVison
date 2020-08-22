@@ -114,7 +114,7 @@ class RFID:
             AddSig,NewUsrID,appRq = FireBase_Com.AddNew()
             # print("appRq = ",appRq)
             if (appRq == 0 or appRq == 1):
-                print("Looking for card...")
+                # print("Looking for card...")
                 # Scan for cards    
                 # rdr.wait_for_tag()
                 (error, data) = rdr.request()
