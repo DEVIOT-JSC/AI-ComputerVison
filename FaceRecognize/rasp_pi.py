@@ -7,7 +7,55 @@ from datetime import datetime
 import os
 import urllib.request
 import face_recognition
-
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
+from requests.packages import urllib3
+def SendData(UsrID=''):
+    today = str(datetime.datetime.today()).split(" ")[0]
+    # Send data
+    diemdanh = db.reference(str('diemdanh/'+today))
+    print("str('diemdanh/'+today)",str('diemdanh/'+today))
+    # diemdanh = db.reference(str('diemdanh/13-08-2020'))
+    rq = diemdanh.child(UsrID)
+    now = datetime.datetime.now()
+    timeEnter = '0'
+    timeExit = '0'
+    hour = int(str(now).split(' ')[1].split(':')[0])
+    this_time = str(now).split(' ')[1].split('.')[0]
+    # print('hour = ',hour)
+    print('this time',this_time)
+    if (hour > 8 and hour < 10):
+        timeEnter = this_time
+        result = rq.update({'timeEnter':timeEnter})
+    elif (hour > 16 and hour < 18):
+        timeExit = this_time
+        result = rq.update({'timeExit':timeExit})
+def GetAuthenData():
+    # FireBase_Com.Init()
+    list_UserID = []
+    list_UserFaceID = []
+    list_UserInfo = []
+    #Get data
+    employees = db.reference('employees')
+    dayTab = employees.get()
+    json_dayTab = json.dumps(dayTab)
+    for key, value in dayTab.items():
+        list_UserID.append(key)
+        list_UserInfo.append(value)
+    for id in list_UserID:
+        db_faceid = db.reference(str('employees/' + str(id) + '/faceid'))
+        faceid_ = db_faceid.get()
+        list_UserFaceID.append(faceid_)
+    return list_UserID,list_UserFaceID
+def UpdateFaceInfo(UsrID = '', FaceID = ''):
+    # FireBase_Com.Init()
+    employees = db.reference(str('employees/'+UsrID))
+    result = employees.update({'FaceID':FaceID})
+def PushDataToFirebase(FaceID = ''):
+    # Connect to firebase
+    cred = credentials.Certificate("deviot-may-cham-cong-firebase-adminsdk-4j9vd-c20046ba51.json")
+    firebase_admin.initialize_app(cred,{'databaseURL':'https://deviot-may-cham-cong.firebaseio.com'})
 new_img='v_tuan.jpg'
 new_txt='V_TUAN.txt'
 classNames = ['a_tuan', 'd_tuan', 'giang', 'hieu',
