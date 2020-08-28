@@ -186,6 +186,8 @@ while True:
         name = classNames[matchIndex].upper()
         millis=str(round(time.time()*1000))
         ID=name+millis
+        PushDataToFirebase(ID)
+
         if name=='':
             continue
         with open('/home/pi/face_recog/lich_cham_cong.txt', 'a') as f:
