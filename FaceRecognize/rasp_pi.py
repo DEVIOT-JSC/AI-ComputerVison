@@ -5,22 +5,14 @@ import cv2
 import numpy as np
 from datetime import datetime
 import os
-<<<<<<< HEAD
 import urllib.request
 import face_recognition
 import json
 import datetime
-=======
-import matplotlib.pyplot as plt
-from imutils.video import FPS
-import urllib.request
-# import face_recognition
->>>>>>> ab62cb37b29d8193cfea28b4965b799ec4eacb34
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 from requests.packages import urllib3
-<<<<<<< HEAD
 # --------------------------------------------------------------
 cred = credentials.Certificate("deviot-may-cham-cong-firebase-adminsdk-4j9vd-c20046ba51.json")
 firebase_admin.initialize_app(cred,{'databaseURL':'https://deviot-may-cham-cong.firebaseio.com'})
@@ -53,10 +45,6 @@ def ReverseDay(day = ''):
     return output
 def SendData(UsrID=''):
     today = ReverseDay(str(datetime.datetime.today()).split(" ")[0])
-=======
-def SendData(UsrID=''):
-    today = str(datetime.datetime.today()).split(" ")[0]
->>>>>>> ab62cb37b29d8193cfea28b4965b799ec4eacb34
     # Send data
     diemdanh = db.reference(str('diemdanh/'+today))
     print("str('diemdanh/'+today)",str('diemdanh/'+today))
@@ -67,10 +55,7 @@ def SendData(UsrID=''):
     timeExit = '0'
     hour = int(str(now).split(' ')[1].split(':')[0])
     this_time = str(now).split(' ')[1].split('.')[0]
-<<<<<<< HEAD
     print(this_time)
-=======
->>>>>>> ab62cb37b29d8193cfea28b4965b799ec4eacb34
     # print('hour = ',hour)
     print('this time',this_time)
     if (hour > 8 and hour < 10):
@@ -79,7 +64,6 @@ def SendData(UsrID=''):
     elif (hour > 16 and hour < 18):
         timeExit = this_time
         result = rq.update({'timeExit':timeExit})
-<<<<<<< HEAD
 def Authen(uid = []):
     i = 0
     list_UserID = []
@@ -108,8 +92,6 @@ def Authen(uid = []):
         UsrID = ''
     i= 0
     return result,UsrID
-=======
->>>>>>> ab62cb37b29d8193cfea28b4965b799ec4eacb34
 def GetAuthenData():
     # FireBase_Com.Init()
     list_UserID = []
@@ -123,11 +105,7 @@ def GetAuthenData():
         list_UserID.append(key)
         list_UserInfo.append(value)
     for id in list_UserID:
-<<<<<<< HEAD
         db_faceid = db.reference(str('employees/' + str(id) + '/FaceID'))
-=======
-        db_faceid = db.reference(str('employees/' + str(id) + '/faceid'))
->>>>>>> ab62cb37b29d8193cfea28b4965b799ec4eacb34
         faceid_ = db_faceid.get()
         list_UserFaceID.append(faceid_)
     return list_UserID,list_UserFaceID
@@ -137,7 +115,6 @@ def UpdateFaceInfo(UsrID = '', FaceID = ''):
     result = employees.update({'FaceID':FaceID})
 def PushDataToFirebase(FaceID = ''):
     # Connect to firebase
-<<<<<<< HEAD
     # cred = credentials.Certificate("deviot-may-cham-cong-firebase-adminsdk-4j9vd-c20046ba51.json")
     # firebase_admin.initialize_app(cred,{'databaseURL':'https://deviot-may-cham-cong.firebaseio.com'})
     addTab,NewUsrID,appRq = AddNew()
@@ -157,19 +134,6 @@ def PushDataToFirebase(FaceID = ''):
 
 # End of Hieu's code
 # -----------------------------------------------------------------
-=======
-    cred = credentials.Certificate("deviot-may-cham-cong-firebase-adminsdk-4j9vd-c20046ba51.json")
-    firebase_admin.initialize_app(cred,{'databaseURL':'https://deviot-may-cham-cong.firebaseio.com'})
-    list_UserID,list_UserFaceID = GetAuthenData()
-    print(list_UserFaceID)
-    print("------------------------------")
-    print(list_UserID)
-if __name__ == "__main__":
-    PushDataToFirebase("abc")
-
-
-#---------------------------------
->>>>>>> ab62cb37b29d8193cfea28b4965b799ec4eacb34
 
 new_img='v_tuan.jpg'
 new_txt='V_TUAN.txt'
@@ -289,11 +253,6 @@ while True:
         name = classNames[matchIndex].upper()
         millis=str(round(time.time()*1000))
         ID=name+millis
-<<<<<<< HEAD
-=======
-        PushDataToFirebase(ID)
-
->>>>>>> ab62cb37b29d8193cfea28b4965b799ec4eacb34
         if name=='':
             continue
         with open('/home/pi/face_recog/lich_cham_cong.txt', 'a') as f:
@@ -328,7 +287,6 @@ while True:
             break
 
 
-<<<<<<< HEAD
 # from imutils.video import VideoStream
 # import time
 # import cv2
@@ -493,6 +451,4 @@ while True:
 #             cv2.waitKey(1)
 #         else:
 #             break
-=======
->>>>>>> ab62cb37b29d8193cfea28b4965b799ec4eacb34
 
